@@ -132,7 +132,6 @@ class UPTD_Test extends TestCase
         $response->assertStatus(404);
     }
 
-    /*-------------------------------------------------------------------------------------------------*/
 
     public function test_ObtenerListadoDeComentario()
     {
@@ -165,7 +164,7 @@ class UPTD_Test extends TestCase
 
         ];
 
-        $response = $this->get('/api/comentario/2');
+        $response = $this->get('/api/comentario/3');
         $response->assertStatus(200);
         $response->assertJsonStructure($estructuraEsperable);
     }
