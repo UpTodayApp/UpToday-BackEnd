@@ -11,4 +11,13 @@ class Comentario extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = "comentario";
+
+    public function Post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+    public function megusta()
+    {
+        return $this->hasMany(comentario::class);
+    }
 }
