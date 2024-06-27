@@ -132,7 +132,6 @@ class UPTD_Test extends TestCase
         $response->assertStatus(404);
     }
 
-    /*-----------------------------------------------------------------------------------------*/
     public function test_ObtenerListadoDeComentario()
     {
         $estructuraEsperable = [
@@ -257,7 +256,6 @@ class UPTD_Test extends TestCase
         $response->assertStatus(404);
     }
 
-    /*-----------------------------------------------------------------------------------------*/
     public function test_ObtenerListadoDeMegustaPost()
     {
         $estructuraEsperable = [
@@ -377,8 +375,6 @@ class UPTD_Test extends TestCase
         $response = $this->put('/api/megustapost/99999');
         $response->assertStatus(404);
     }
-
-    /*--------------------------------------------------------------------------------------------------------------------------------------------*/
 
     public function test_ObtenerListadoDeMegustaComentario()
     {

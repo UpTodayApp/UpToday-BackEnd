@@ -47,7 +47,6 @@ class MegustaController extends Controller
         return $megusta;
     }
 
-    /* ------------------------------------------------------------------------------------------------------------------------------------------ */
 
 
     public function CrearComentario(Request $request)
