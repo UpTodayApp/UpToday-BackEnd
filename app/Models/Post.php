@@ -16,4 +16,9 @@ class Post extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function megusta()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

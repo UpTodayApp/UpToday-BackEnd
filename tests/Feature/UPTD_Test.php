@@ -132,7 +132,7 @@ class UPTD_Test extends TestCase
         $response->assertStatus(404);
     }
 
-
+    /*-----------------------------------------------------------------------------------------*/
     public function test_ObtenerListadoDeComentario()
     {
         $estructuraEsperable = [
@@ -254,6 +254,249 @@ class UPTD_Test extends TestCase
     public function test_ModificarComentarioQueNoExiste()
     {
         $response = $this->put('/api/comentario/99999');
+        $response->assertStatus(404);
+    }
+
+    /*-----------------------------------------------------------------------------------------*/
+    public function test_ObtenerListadoDeMegustaPost()
+    {
+        $estructuraEsperable = [
+            '*' => [
+                'usuario',
+                'post_id',
+                'created_at',
+                'updated_at',
+                'deleted_at'
+            ]
+        ];
+
+        $response = $this->get('/api/megustapost');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ObtenerUnMegustaPost()
+    {
+        $estructuraEsperable = [
+
+            'usuario',
+            'post_id',
+            'created_at',
+            'updated_at',
+            'deleted_at'
+
+        ];
+
+        $response = $this->get('/api/megustapost/3');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ObtenerUnMegustaPostQueNoExiste()
+    {
+        $response = $this->get('/api/megustapost/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_CrearUnMegustaPost()
+    {
+        $estructuraEsperable = [
+
+            'usuario',
+            'post_id',
+            'created_at',
+            'updated_at'
+
+
+        ];
+
+        $datosDeMegustapost = [
+            "usuario" => 1,
+            "post_id" => 1
+        ];
+
+        $response = $this->post('/api/megustapost', $datosDeMegustapost);
+        $response->assertStatus(201);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeMegustapost);
+
+        $this->assertDatabaseHas('megusta', [
+            "usuario" => 1,
+            "post_id" => 1
+        ]);
+    }
+
+    public function test_EliminarMegustaPostQueNoExiste()
+    {
+        $response = $this->delete('/api/megustapost/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_EliminarMegustapost()
+    {
+        $response = $this->delete('/api/megustapost/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['mensaje']);
+        $response->assertJsonFragment(['mensaje' => 'Me gusta post eliminado']);
+
+        $this->assertDatabaseMissing('megusta', [
+            'id' => '1',
+            'deleted_at' => null
+        ]);
+    }
+
+    public function test_ModificarMegustaPost()
+    {
+        $estructuraEsperable = [
+
+            'usuario',
+            'post_id',
+            'created_at',
+            'updated_at',
+            'deleted_at'
+
+        ];
+
+        $datosDeMegustapost = [
+            "usuario" => 1,
+            "post_id" => 2
+        ];
+
+        $response = $this->put('/api/megustapost/3', $datosDeMegustapost);
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeMegustapost);
+        $this->assertDatabaseHas('megusta', [
+            "usuario" => 1,
+            "post_id" => 2
+        ]);
+    }
+
+    public function test_ModificarMegustaPostQueNoExiste()
+    {
+        $response = $this->put('/api/megustapost/99999');
+        $response->assertStatus(404);
+    }
+
+    /*--------------------------------------------------------------------------------------------------------------------------------------------*/
+
+    public function test_ObtenerListadoDeMegustaComentario()
+    {
+        $estructuraEsperable = [
+            '*' => [
+                'usuario',
+                'comentario_id',
+                'created_at',
+                'updated_at',
+                'deleted_at'
+            ]
+        ];
+
+        $response = $this->get('/api/megustacomentario');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ObtenerUnMegustaComentario()
+    {
+        $estructuraEsperable = [
+
+            'usuario',
+            'comentario_id',
+            'created_at',
+            'updated_at',
+            'deleted_at'
+
+        ];
+
+        $response = $this->get('/api/megustacomentario/3');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ObtenerUnMegustaComentarioQueNoExiste()
+    {
+        $response = $this->get('/api/megustacomentario/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_CrearUnMegustaComentario()
+    {
+        $estructuraEsperable = [
+
+            'usuario',
+            'comentario_id',
+            'created_at',
+            'updated_at'
+
+
+        ];
+
+        $datosDeMegustacomentario = [
+            "usuario" => 1,
+            "comentario_id" => 1
+        ];
+
+        $response = $this->post('/api/megustacomentario', $datosDeMegustacomentario);
+        $response->assertStatus(201);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeMegustacomentario);
+
+        $this->assertDatabaseHas('megusta', [
+            "usuario" => 1,
+            "comentario_id" => 1
+        ]);
+    }
+
+    public function test_EliminarMegustaComentarioQueNoExiste()
+    {
+        $response = $this->delete('/api/megustacomentario/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_EliminarMegustaComentario()
+    {
+        $response = $this->delete('/api/megustacomentario/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['mensaje']);
+        $response->assertJsonFragment(['mensaje' => 'Me gusta comentario eliminado']);
+
+        $this->assertDatabaseMissing('megusta', [
+            'id' => '1',
+            'deleted_at' => null
+        ]);
+    }
+
+    public function test_ModificarMegustaComentario()
+    {
+        $estructuraEsperable = [
+
+            'usuario',
+            'comentario_id',
+            'created_at',
+            'updated_at',
+            'deleted_at'
+
+        ];
+
+        $datosDeMegustacomentario = [
+            "usuario" => 1,
+            "comentario_id" => 2
+        ];
+
+        $response = $this->put('/api/megustacomentario/3', $datosDeMegustacomentario);
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeMegustacomentario);
+        $this->assertDatabaseHas('megusta', [
+            "usuario" => 1,
+            "comentario_id" => 2
+        ]);
+    }
+
+    public function test_ModificarMegustaComentarioQueNoExiste()
+    {
+        $response = $this->put('/api/megustacomentario/99999');
         $response->assertStatus(404);
     }
 }

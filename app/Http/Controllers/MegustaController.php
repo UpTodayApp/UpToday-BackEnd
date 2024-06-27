@@ -21,24 +21,24 @@ class MegustaController extends Controller
         return response()->json(["error mesage" => "sos un salame"]);
     }
 
-    public function ListarTodas(Request $request)
+    public function ListarTodasPost(Request $request)
     {
         return megusta::all();
     }
 
-    public function ListarUna(Request $request, $id)
+    public function ListarUnaPost(Request $request, $id)
     {
         return megusta::findOrFail($id);
     }
 
-    public function Eliminar(Request $request, $id)
+    public function EliminarPost(Request $request, $id)
     {
         $megusta = megusta::findOrFail($id);
         $megusta->delete();
         return ['mensaje' => 'Post eliminado'];
     }
 
-    public function Modificar(Request $request, $id)
+    public function ModificarPost(Request $request, $id)
     {
         $megusta = megusta::findOrFail($id);
         $megusta->usuario = $request->post("usuario");
@@ -57,7 +57,7 @@ class MegustaController extends Controller
 
             $megusta = new Megusta();
             $megusta->usuario = $request->post("usuario");
-            $megusta->post_id = $request->post("comentario_id");
+            $megusta->comentario_id = $request->post("comentario_id");
             $megusta->save();
             return $megusta;
         }
@@ -85,7 +85,7 @@ class MegustaController extends Controller
     {
         $megusta = megusta::findOrFail($id);
         $megusta->usuario = $request->post("usuario");
-        $megusta->post_id = $request->post("comentario_id");
+        $megusta->comentario_id = $request->post("comentario_id");
         $megusta->save();
         return $megusta;
     }

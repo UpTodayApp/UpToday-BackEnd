@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\MegustaController;
 
 
 Route::get('/post', [PostController::class, 'ListarTodas']);
@@ -18,3 +19,16 @@ Route::get('/comentario/{d}', [ComentarioController::class, 'ListarUna']);
 Route::post('/comentario', [ComentarioController::class, 'Crear']);
 Route::delete('/comentario/{d}', [ComentarioController::class, 'Eliminar']);
 Route::put('/comentario/{d}', [ComentarioController::class, 'Modificar']);
+
+
+Route::get('/megustapost', [MegustaController::class, 'ListarTodasPost']);
+Route::get('/megustapost/{d}', [MegustaController::class, 'ListarUnaPost']);
+Route::post('/megustapost', [MegustaController::class, 'CrearPost']);
+Route::delete('/megustapost/{d}', [MegustaController::class, 'EliminarPost']);
+Route::put('/megustapost/{d}', [MegustaController::class, 'ModificarPost']);
+
+Route::get('/megustacomentario', [MegustaController::class, 'ListarTodasComentario']);
+Route::get('/megustacomentario/{d}', [MegustaController::class, 'ListarUnaComentario']);
+Route::post('/megustacomentario', [MegustaController::class, 'CrearComentario']);
+Route::delete('/megustacomentario/{d}', [MegustaController::class, 'EliminarComentario']);
+Route::put('/megustacomentario/{d}', [MegustaController::class, 'ModificarComentario']);
