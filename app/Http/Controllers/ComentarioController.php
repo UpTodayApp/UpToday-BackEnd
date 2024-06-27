@@ -36,7 +36,7 @@ class ComentarioController extends Controller
     {
         $comentario = Comentario::findOrFail($id);
         $comentario->delete();
-        return ['mensaje' => 'Post eliminado'];
+        return ['mensaje' => 'Comentario eliminado'];
     }
 
     public function Modificar(Request $request, $id)
