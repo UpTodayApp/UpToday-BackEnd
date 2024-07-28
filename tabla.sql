@@ -31,6 +31,6 @@ CREATE TABLE `comentario` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   post_id int,
-  foreign key(comentario_id) references comentario(id),
+  MeGusta_id int,
   PRIMARY KEY (id)
 );

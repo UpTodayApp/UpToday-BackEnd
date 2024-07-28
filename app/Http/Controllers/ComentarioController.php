@@ -47,10 +47,4 @@ class ComentarioController extends Controller
         $comentario->save();
         return $comentario;
     }
-
-    public function Likear(Request $request, $id)
-    {
-
-        $like = [1, 2, 4, 6, 78];
-    }
 }
