@@ -46,4 +46,10 @@ class PostController extends Controller
         $post->save();
         return $post;
     }
+
+    public function MostrarFormularioDeModificar(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        return view("modificarPost", ["post" => $post]);
+    }
 }
