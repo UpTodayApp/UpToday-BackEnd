@@ -14,6 +14,6 @@ class uptdSeeder extends Seeder
     public function run()
     {
         \App\Models\post::factory(10)->create();
-
+        \App\Models\comentario::factory(10)->create();
     }
 }
