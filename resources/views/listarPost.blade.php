@@ -25,21 +25,21 @@
             Fecha de alta
         </th>
     </thead>
-    @foreach($post as $p)
+    @foreach ($post as $p)
     <tr>
         <td>
-            {{ $p -> usuario }}
+            {{ $p->usuario }}
         </td>
         <td>
-            {{ $p -> contenido }}
+            {{ $p->contenido }}
         </td>
         <td>
-            {{ $p -> created_at }}
+            {{ $p->created_at }}
         </td>
 
         <td>
-            <a href="/eliminarPost/{{ $p -> id }}">Eliminar</a>
-            <a href="/modificarPost/{{ $p -> id }}">Modificar</a>
+            <a href="/eliminarPost/{{ $p->id }}">Eliminar</a>
+            <a href="/modificarPost/{{ $p->id }}">Modificar</a>
         </td>
     </tr>
     @endforeach
