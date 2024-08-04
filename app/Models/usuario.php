@@ -11,4 +11,18 @@ class usuario extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = "usuario";
+
+    public function post()
+    {
+        return $this->hasMany(usuario::class);
+    }
+    public function comentario()
+    {
+        return $this->hasMany(usuario::class);
+    }
+
+    public function megusta()
+    {
+        return $this->hasMany(usuario::class);
+    }
 }

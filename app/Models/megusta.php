@@ -21,4 +21,9 @@ class megusta extends Model
     {
         return $this->belongsTo(comentario::class);
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(usuario::class);
+    }
 }

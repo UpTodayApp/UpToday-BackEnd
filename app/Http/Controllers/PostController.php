@@ -9,11 +9,11 @@ class PostController extends Controller
 {
     public function Crear(Request $request)
     {
-        if ($request->has("contenido") && $request->has("usuario")) {
+        if ($request->has("contenido") && $request->has("usuario_id")) {
 
 
             $post = new Post();
-            $post->usuario = $request->post("usuario");
+            $post->usuario_id = $request->post("usuario_id");
             $post->contenido = $request->post("contenido");
             $post->save();
             return $post;
@@ -41,7 +41,7 @@ class PostController extends Controller
     public function Modificar(Request $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->usuario = $request->post("usuario");
+        $post->usuario_id = $request->post("usuario_id");
         $post->contenido = $request->post("contenido");
         $post->save();
         return $post;

@@ -9,11 +9,11 @@ class MegustaController extends Controller
 {
     public function CrearPost(Request $request)
     {
-        if ($request->has("usuario")) {
+        if ($request->has("usuario_id")) {
 
 
             $megusta = new Megusta();
-            $megusta->usuario = $request->post("usuario");
+            $megusta->usuario_id = $request->post("usuario_id");
             $megusta->post_id = $request->post("post_id");
             $megusta->save();
             return $megusta;
@@ -41,7 +41,7 @@ class MegustaController extends Controller
     public function ModificarPost(Request $request, $id)
     {
         $megusta = megusta::findOrFail($id);
-        $megusta->usuario = $request->post("usuario");
+        $megusta->usuario_id = $request->post("usuario_id");
         $megusta->post_id = $request->post("post_id");
         $megusta->save();
         return $megusta;
@@ -51,11 +51,11 @@ class MegustaController extends Controller
 
     public function CrearComentario(Request $request)
     {
-        if ($request->has("usuario")) {
+        if ($request->has("usuario_id")) {
 
 
             $megusta = new Megusta();
-            $megusta->usuario = $request->post("usuario");
+            $megusta->usuario_id = $request->post("usuario_id");
             $megusta->comentario_id = $request->post("comentario_id");
             $megusta->save();
             return $megusta;
@@ -83,7 +83,7 @@ class MegustaController extends Controller
     public function ModificarComentario(Request $request, $id)
     {
         $megusta = megusta::findOrFail($id);
-        $megusta->usuario = $request->post("usuario");
+        $megusta->usuario_id = $request->post("usuario_id");
         $megusta->comentario_id = $request->post("comentario_id");
         $megusta->save();
         return $megusta;

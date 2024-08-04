@@ -21,4 +21,9 @@ class Post extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(usuario::class);
+    }
 }

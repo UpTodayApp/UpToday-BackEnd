@@ -20,4 +20,9 @@ class Comentario extends Model
     {
         return $this->hasMany(comentario::class);
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(usuario::class);
+    }
 }

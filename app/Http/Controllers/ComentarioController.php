@@ -10,11 +10,11 @@ class ComentarioController extends Controller
 
     public function Crear(Request $request)
     {
-        if ($request->has("contenido") && $request->has("usuario")) {
+        if ($request->has("contenido") && $request->has("usuario_id")) {
 
 
             $comentario = new Comentario();
-            $comentario->usuario = $request->post("usuario");
+            $comentario->usuario_id = $request->post("usuario_id");
             $comentario->contenido = $request->post("contenido");
             $comentario->save();
             return $comentario;
@@ -42,7 +42,7 @@ class ComentarioController extends Controller
     public function Modificar(Request $request, $id)
     {
         $comentario = Comentario::findOrFail($id);
-        $comentario->usuario = $request->post("usuario");
+        $comentario->usuario_id = $request->post("usuario_id");
         $comentario->contenido = $request->post("contenido");
         $comentario->save();
         return $comentario;

@@ -9,11 +9,149 @@ use Tests\TestCase;
 class UPTD_Test extends TestCase
 {
 
+    public function test_CrearUnUsuario()
+    {
+        $estructuraEsperable = [
+            "NombreUsuario",
+            "Correo",
+            "Contraseña",
+            "updated_at",
+            "created_at",
+            "id"
+
+
+        ];
+
+        $datosDeUsuario_id = [
+            "NombreUsuario" => "Carlo",
+            "Correo" => "carloelmasgrande@gmail.com",
+            "Contraseña" => "1234567890"
+        ];
+
+        $response = $this->post('/api/usuario', $datosDeUsuario_id);
+        $response->assertStatus(201);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeUsuario_id);
+
+        $this->assertDatabaseHas('usuario', [
+            "NombreUsuario" => "Carlo",
+            "Correo" => "carloelmasgrande@gmail.com",
+            "Contraseña" => "1234567890"
+        ]);
+    }
+
+    public function test_ObtenerListadoDeUsuario_id()
+    {
+        $estructuraEsperable = [
+            '*' => [
+                "id",
+                "NombreUsuario",
+                "Contraseña",
+                "Correo",
+                "FechaNacimiento",
+                "Reputacion",
+                "Estado",
+                "Pais",
+                "Ciudad",
+                "Biografia",
+                "Redes",
+                "created_at",
+                "updated_at",
+                "deleted_at"
+            ]
+        ];
+
+        $response = $this->get('/api/usuario');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ObtenerUnUsuario_id()
+    {
+        $estructuraEsperable = [
+            "id",
+            "NombreUsuario",
+            "Contraseña",
+            "Correo",
+            "FechaNacimiento",
+            "Reputacion",
+            "Estado",
+            "Pais",
+            "Ciudad",
+            "Biografia",
+            "Redes",
+            "created_at",
+            "updated_at",
+            "deleted_at"
+        ];
+
+        $response = $this->get('/api/usuario/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ModificarUsuario_id()
+    {
+        $estructuraEsperable = [
+
+            "id",
+            "NombreUsuario",
+            "Contraseña",
+            "Correo",
+            "FechaNacimiento",
+            "Reputacion",
+            "Estado",
+            "Pais",
+            "Ciudad",
+            "Biografia",
+            "Redes",
+            "created_at",
+            "updated_at",
+            "deleted_at"
+
+        ];
+
+        $datosDePost = [
+            "NombreUsuario" => "Carlos",
+            "Correo" => "carloselmasgrande@gmail.com",
+            "Contraseña" => "1234567534"
+        ];
+
+        $response = $this->put('/api/usuario/1', $datosDePost);
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDePost);
+        $this->assertDatabaseHas('usuario', [
+            "NombreUsuario" => "Carlos",
+            "Correo" => "carloselmasgrande@gmail.com",
+            "Contraseña" => "1234567534"
+        ]);
+    }
+
+    public function test_ObtenerUnUsuarioQueNoExiste()
+    {
+        $response = $this->get('/api/usuario/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_EliminarUsuarioQueNoExiste()
+    {
+        $response = $this->delete('/api/usuario/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_ModificarUsuarioQueNoExiste()
+    {
+        $response = $this->put('/api/usuario/99999');
+        $response->assertStatus(404);
+    }
+
+
     public function test_CrearUnPost()
     {
         $estructuraEsperable = [
             'id',
-            'usuario',
+            'usuario_id',
             'contenido',
             'created_at',
             'updated_at',
@@ -22,7 +160,7 @@ class UPTD_Test extends TestCase
         ];
 
         $datosDePost = [
-            "usuario" => 9,
+            "usuario_id" => 1,
             "contenido" => "aguante la mercaaaaaaaaaaaaaaaaaaaa"
         ];
 
@@ -32,7 +170,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonFragment($datosDePost);
 
         $this->assertDatabaseHas('post', [
-            "usuario" => 9,
+            "usuario_id" => 1,
             "contenido" => "aguante la mercaaaaaaaaaaaaaaaaaaaa"
         ]);
     }
@@ -42,7 +180,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
             '*' => [
                 'id',
-                'usuario',
+                'usuario_id',
                 'contenido',
                 'created_at',
                 'updated_at',
@@ -59,7 +197,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
 
             'id',
-            'usuario',
+            'usuario_id',
             'contenido',
             'created_at',
             'updated_at',
@@ -91,7 +229,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
 
             'id',
-            'usuario',
+            'usuario_id',
             'contenido',
             'created_at',
             'updated_at',
@@ -100,7 +238,7 @@ class UPTD_Test extends TestCase
         ];
 
         $datosDePost = [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "contenido" => "Soy un arbol"
         ];
 
@@ -109,7 +247,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonStructure($estructuraEsperable);
         $response->assertJsonFragment($datosDePost);
         $this->assertDatabaseHas('post', [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "contenido" => "Soy un arbol"
         ]);
     }
@@ -124,7 +262,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
 
-            "usuario",
+            "usuario_id",
             "contenido",
             "updated_at",
             "created_at",
@@ -133,7 +271,7 @@ class UPTD_Test extends TestCase
         ];
 
         $datosDeComentario = [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "contenido" => "caballo homosexual de las montañas"
         ];
 
@@ -143,7 +281,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonFragment($datosDeComentario);
 
         $this->assertDatabaseHas('comentario', [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "contenido" => "caballo homosexual de las montañas"
         ]);
     }
@@ -153,7 +291,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
             '*' => [
                 'id',
-                'usuario',
+                'usuario_id',
                 'contenido',
                 'created_at',
                 'updated_at',
@@ -171,7 +309,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
 
             'id',
-            'usuario',
+            'usuario_id',
             'contenido',
             'created_at',
             'updated_at',
@@ -204,7 +342,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
 
             'id',
-            'usuario',
+            'usuario_id',
             'contenido',
             'created_at',
             'updated_at',
@@ -213,7 +351,7 @@ class UPTD_Test extends TestCase
         ];
 
         $datosDePost = [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "contenido" => "ElGatoSapeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
         ];
 
@@ -222,7 +360,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonStructure($estructuraEsperable);
         $response->assertJsonFragment($datosDePost);
         $this->assertDatabaseHas('comentario', [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "contenido" => "ElGatoSapeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
         ]);
     }
@@ -254,7 +392,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
 
-            'usuario',
+            'usuario_id',
             'post_id',
             'created_at',
             'updated_at'
@@ -263,7 +401,7 @@ class UPTD_Test extends TestCase
         ];
 
         $datosDeMegustapost = [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "post_id" => 1
         ];
 
@@ -273,7 +411,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonFragment($datosDeMegustapost);
 
         $this->assertDatabaseHas('megusta', [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "post_id" => 1
         ]);
     }
@@ -282,7 +420,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
             '*' => [
-                'usuario',
+                'usuario_id',
                 'post_id',
                 'created_at',
                 'updated_at',
@@ -299,7 +437,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
 
-            'usuario',
+            'usuario_id',
             'post_id',
             'created_at',
             'updated_at',
@@ -343,7 +481,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
 
-            'usuario',
+            'usuario_id',
             'comentario_id',
             'created_at',
             'updated_at'
@@ -352,7 +490,7 @@ class UPTD_Test extends TestCase
         ];
 
         $datosDeMegustacomentario = [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "comentario_id" => 1
         ];
 
@@ -362,7 +500,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonFragment($datosDeMegustacomentario);
 
         $this->assertDatabaseHas('megusta', [
-            "usuario" => 1,
+            "usuario_id" => 1,
             "comentario_id" => 1
         ]);
     }
@@ -372,7 +510,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
             '*' => [
-                'usuario',
+                'usuario_id',
                 'comentario_id',
                 'created_at',
                 'updated_at',
@@ -389,7 +527,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
 
-            'usuario',
+            'usuario_id',
             'comentario_id',
             'created_at',
             'updated_at',
@@ -428,162 +566,6 @@ class UPTD_Test extends TestCase
         ]);
     }
 
-
-
-
-    /*--------------------------------------------------------------------------------------------------------------------------------------*/
-
-
-    public function test_CrearUnUsuario()
-    {
-        $estructuraEsperable = [
-            "NombreUsuario",
-            "Correo",
-            "Contraseña",
-            "updated_at",
-            "created_at",
-            "id"
-
-
-        ];
-
-        $datosDeUsuario = [
-            "NombreUsuario" => "Carlo",
-            "Correo" => "carloelmasgrande@gmail.com",
-            "Contraseña" => "1234567890"
-        ];
-
-        $response = $this->post('/api/usuario', $datosDeUsuario);
-        $response->assertStatus(201);
-        $response->assertJsonStructure($estructuraEsperable);
-        $response->assertJsonFragment($datosDeUsuario);
-
-        $this->assertDatabaseHas('usuario', [
-            "NombreUsuario" => "Carlo",
-            "Correo" => "carloelmasgrande@gmail.com",
-            "Contraseña" => "1234567890"
-        ]);
-    }
-
-    public function test_ObtenerListadoDeUsuario()
-    {
-        $estructuraEsperable = [
-            '*' => [
-                "id",
-                "NombreUsuario",
-                "Contraseña",
-                "Correo",
-                "FechaNacimiento",
-                "Reputacion",
-                "Estado",
-                "Pais",
-                "Ciudad",
-                "Biografia",
-                "Redes",
-                "created_at",
-                "updated_at",
-                "deleted_at"
-            ]
-        ];
-
-        $response = $this->get('/api/usuario');
-        $response->assertStatus(200);
-        $response->assertJsonStructure($estructuraEsperable);
-    }
-
-    public function test_ObtenerUnUsuario()
-    {
-        $estructuraEsperable = [
-            "id",
-            "NombreUsuario",
-            "Contraseña",
-            "Correo",
-            "FechaNacimiento",
-            "Reputacion",
-            "Estado",
-            "Pais",
-            "Ciudad",
-            "Biografia",
-            "Redes",
-            "created_at",
-            "updated_at",
-            "deleted_at"
-        ];
-
-        $response = $this->get('/api/usuario/1');
-        $response->assertStatus(200);
-        $response->assertJsonStructure($estructuraEsperable);
-    }
-
-    public function test_ModificarUsuario()
-    {
-        $estructuraEsperable = [
-
-            "id",
-            "NombreUsuario",
-            "Contraseña",
-            "Correo",
-            "FechaNacimiento",
-            "Reputacion",
-            "Estado",
-            "Pais",
-            "Ciudad",
-            "Biografia",
-            "Redes",
-            "created_at",
-            "updated_at",
-            "deleted_at"
-
-        ];
-
-        $datosDePost = [
-            "NombreUsuario" => "Carlos",
-            "Correo" => "carloselmasgrande@gmail.com",
-            "Contraseña" => "1234567534"
-        ];
-
-        $response = $this->put('/api/usuario/1', $datosDePost);
-        $response->assertStatus(200);
-        $response->assertJsonStructure($estructuraEsperable);
-        $response->assertJsonFragment($datosDePost);
-        $this->assertDatabaseHas('usuario', [
-            "NombreUsuario" => "Carlos",
-            "Correo" => "carloselmasgrande@gmail.com",
-            "Contraseña" => "1234567534"
-        ]);
-    }
-
-    public function test_EliminarUsuario()
-    {
-        $response = $this->delete('/api/usuario/1');
-        $response->assertStatus(200);
-        $response->assertJsonStructure(['mensaje']);
-        $response->assertJsonFragment(['mensaje' => 'usuario eliminado']);
-
-        $this->assertDatabaseMissing('usuario', [
-            'id' => '1',
-            'deleted_at' => null
-        ]);
-    }
-
-    public function test_ObtenerUnUsuarioQueNoExiste()
-    {
-        $response = $this->get('/api/usuario/99999');
-        $response->assertStatus(404);
-    }
-
-    public function test_EliminarUsuarioQueNoExiste()
-    {
-        $response = $this->delete('/api/usuario/99999');
-        $response->assertStatus(404);
-    }
-
-    public function test_ModificarUsuarioQueNoExiste()
-    {
-        $response = $this->put('/api/usuario/99999');
-        $response->assertStatus(404);
-    }
-
     public function test_EliminarPost()
     {
         $response = $this->delete('/api/post/1');
@@ -593,6 +575,18 @@ class UPTD_Test extends TestCase
 
         $this->assertDatabaseMissing('post', [
             'id' => '1',
+            'deleted_at' => null
+        ]);
+    }
+    public function test_EliminarUsuario()
+    {
+        $response = $this->delete('/api/usuario/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['mensaje']);
+        $response->assertJsonFragment(['mensaje' => 'usuario eliminado']);
+
+        $this->assertDatabaseMissing('usuario', [
+            'id' => 1,
             'deleted_at' => null
         ]);
     }

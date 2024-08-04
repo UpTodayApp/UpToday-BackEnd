@@ -20,32 +20,30 @@ CREATE TABLE usuario (
 CREATE TABLE post (
   id int(11) NOT NULL AUTO_INCREMENT,
   contenido varchar(255) DEFAULT NULL,
-  usuario int(11) DEFAULT NULL,
+  usuario_id int(11) DEFAULT NULL,
   created_at datetime DEFAULT NULL,
   updated_at datetime DEFAULT NULL,
   deleted_at datetime DEFAULT NULL,
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   PRIMARY KEY (id)
 );
 
 CREATE TABLE comentario (
   id int(11) NOT NULL AUTO_INCREMENT,
   contenido varchar(255) DEFAULT NULL,
-  usuario int(11) DEFAULT NULL,
+  usuario_id int(11) DEFAULT NULL,
   created_at datetime DEFAULT NULL,
   updated_at datetime DEFAULT NULL,
   deleted_at datetime DEFAULT NULL,
   post_id int,
-<<<<<<< HEAD
-  MeGusta_id int,
-=======
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   FOREIGN KEY (post_id) REFERENCES post(id),
->>>>>>> origin/apiUsuario
   PRIMARY KEY (id)
 );
 
 CREATE TABLE MeGusta (
   id int(11) NOT NULL AUTO_INCREMENT,
-  usuario int(11) DEFAULT NULL,
+  usuario_id int(11) DEFAULT NULL,
   created_at datetime DEFAULT NULL,
   updated_at datetime DEFAULT NULL,
   deleted_at datetime DEFAULT NULL,
@@ -53,5 +51,6 @@ CREATE TABLE MeGusta (
   post_id int,
   FOREIGN KEY (comentario_id) REFERENCES comentario(id),
   FOREIGN KEY (post_id) REFERENCES post(id),
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   PRIMARY KEY (id)
 );
