@@ -502,7 +502,7 @@ class UPTD_Test extends TestCase
     public function test_CrearUnUsuario()
     {
         $estructuraEsperable = [
-            `id`,
+            `ìd`,
             `NombreUsuario`,
             `Contraseña`,
             `Correo`,
@@ -523,18 +523,18 @@ class UPTD_Test extends TestCase
         $datosDeUsuario = [
             "NombreUsuario" => "Carlo",
             "Correo" => "carloelmasgrande@gmail.com",
-            "contraseña" => "lasupercontraseñadecarlo"
+            "contraseña" => "1234567890"
         ];
 
-        $response = $this->post('/api/Usuario', $datosDeUsuario);
-        $response->assertStatus(201);
+        $response = $this->post('/api/usuario', $datosDeUsuario);
+        $response->assertStatus(200);
         $response->assertJsonStructure($estructuraEsperable);
         $response->assertJsonFragment($datosDeUsuario);
 
         $this->assertDatabaseHas('usuario', [
             "NombreUsuario" => "Carlo",
             "Correo" => "carloelmasgrande@gmail.com",
-            "contraseña" => "lasupercontraseñadecarlo"
+            "contraseña" => "1234567890"
         ]);
     }
 
