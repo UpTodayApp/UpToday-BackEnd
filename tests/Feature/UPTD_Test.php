@@ -495,4 +495,167 @@ class UPTD_Test extends TestCase
         $response = $this->put('/api/megustacomentario/99999');
         $response->assertStatus(404);
     }
+
+    /*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+
+    public function test_CrearUnUsuario()
+    {
+        $estructuraEsperable = [
+            `id`,
+            `NombreUsuario`,
+            `Contraseña`,
+            `Correo`,
+            `FechaNacimiento`,
+            `Reputacion`,
+            `Estado`,
+            `Pais`,
+            `Ciudad`,
+            `Biografia`,
+            `Redes`,
+            `created_at`,
+            `updated_at`,
+            `deleted_at`
+
+
+        ];
+
+        $datosDeUsuario = [
+            "NombreUsuario" => "Carlo",
+            "Correo" => "carloelmasgrande@gmail.com",
+            "contraseña" => "lasupercontraseñadecarlo"
+        ];
+
+        $response = $this->post('/api/Usuario', $datosDeUsuario);
+        $response->assertStatus(201);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeUsuario);
+
+        $this->assertDatabaseHas('usuario', [
+            "NombreUsuario" => "Carlo",
+            "Correo" => "carloelmasgrande@gmail.com",
+            "contraseña" => "lasupercontraseñadecarlo"
+        ]);
+    }
+
+    public function test_ObtenerListadoDeUsuario()
+    {
+        $estructuraEsperable = [
+            '*' => [
+                `id`,
+                `NombreUsuario`,
+                `Contraseña`,
+                `Correo`,
+                `FechaNacimiento`,
+                `Reputacion`,
+                `Estado`,
+                `Pais`,
+                `Ciudad`,
+                `Biografia`,
+                `Redes`,
+                `created_at`,
+                `updated_at`,
+                `deleted_at`
+            ]
+        ];
+
+        $response = $this->get('/api/usuario');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ObtenerUnUsuario()
+    {
+        $estructuraEsperable = [
+
+            `id`,
+            `NombreUsuario`,
+            `Contraseña`,
+            `Correo`,
+            `FechaNacimiento`,
+            `Reputacion`,
+            `Estado`,
+            `Pais`,
+            `Ciudad`,
+            `Biografia`,
+            `Redes`,
+            `created_at`,
+            `updated_at`,
+            `deleted_at`
+
+        ];
+
+        $response = $this->get('/api/usuario/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    public function test_ModificarUsuario()
+    {
+        $estructuraEsperable = [
+
+            `id`,
+            `NombreUsuario`,
+            `Contraseña`,
+            `Correo`,
+            `FechaNacimiento`,
+            `Reputacion`,
+            `Estado`,
+            `Pais`,
+            `Ciudad`,
+            `Biografia`,
+            `Redes`,
+            `created_at`,
+            `updated_at`,
+            `deleted_at`
+
+        ];
+
+        $datosDePost = [
+            "NombreUsuario" => "Carlo",
+            "Correo" => "carloelmasgrande@gmail.com",
+            "contraseña" => "lasupercontraseñadecarlo"
+        ];
+
+        $response = $this->put('/api/usuario/1', $datosDePost);
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDePost);
+        $this->assertDatabaseHas('usuario', [
+            "NombreUsuario" => "Carlos",
+            "Correo" => "carloselmasgrande@gmail.com",
+            "contraseña" => "lasupercontraseñadecarlos"
+        ]);
+    }
+
+    public function test_EliminarUsuario()
+    {
+        $response = $this->delete('/api/usuario/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['mensaje']);
+        $response->assertJsonFragment(['mensaje' => 'Usuario eliminado']);
+
+        $this->assertDatabaseMissing('usuario', [
+            'id' => '1',
+            'deleted_at' => null
+        ]);
+    }
+
+    public function test_ObtenerUnUsuarioQueNoExiste()
+    {
+        $response = $this->get('/api/usuario/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_EliminarUsuarioQueNoExiste()
+    {
+        $response = $this->delete('/api/usuario/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_ModificarUsuarioQueNoExiste()
+    {
+        $response = $this->put('/api/usuario/99999');
+        $response->assertStatus(404);
+    }
 }

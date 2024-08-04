@@ -9,7 +9,7 @@ class usuarioController extends Controller
 {
     public function Crear(Request $request)
     {
-        if ($request->has("correo") && $request->has("contraseña")) {
+        if ($request->has("Correo") && $request->has("Contraseña")) {
 
 
             $usuario = new usuario();
