@@ -14,9 +14,9 @@ class megustaFactory extends Factory
     public function definition()
     {
         return [
-            "usuario" => rand(1,10),
-            "post_id" => rand(1,10),
-            "comentaio" => rand(1,10)
+            "usuario_id" => rand(1, 10),
+            "post_id" => rand(1, 10),
+            "comentario_id" => rand(1, 10)
         ];
     }
 }

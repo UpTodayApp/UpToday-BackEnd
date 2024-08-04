@@ -1,7 +1,7 @@
 CREATE TABLE usuario (
   id int(11) NOT NULL AUTO_INCREMENT,
   NombreUsuario varchar(20),
-  Contraseña varchar(15),
+  Contraseña varchar(255),
   Correo varchar(255),
   FechaNacimiento date,
   Reputacion int(3),
@@ -41,7 +41,7 @@ CREATE TABLE comentario (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE MeGusta (
+CREATE TABLE megusta (
   id int(11) NOT NULL AUTO_INCREMENT,
   usuario_id int(11) DEFAULT NULL,
   created_at datetime DEFAULT NULL,
