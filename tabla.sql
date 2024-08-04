@@ -8,7 +8,7 @@ CREATE TABLE usuario (
   Estado varchar(100),
   Pais varchar(20),
   Ciudad varchar(20),
-  Biografia varcahr(20),
+  Biografia varchar(20),
   Redes varchar(20),
   created_at datetime DEFAULT NULL,
   updated_at datetime DEFAULT NULL,
