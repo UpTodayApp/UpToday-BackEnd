@@ -54,3 +54,17 @@ CREATE TABLE megusta (
   FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   PRIMARY KEY (id)
 );
+
+CREATE TABLE evento (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  participan int(6) DEFAULT NULL,
+  fecha datetime,
+  detalles varchar(255) DEFAULT NULL,
+  ubicacion varchar(255) DEFAULT NULL, 
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  deleted_at datetime DEFAULT NULL,
+  comentario_id int,
+  FOREIGN KEY (comentario_id) REFERENCES comentario(id),
+  PRIMARY KEY (id)
+);
