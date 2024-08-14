@@ -566,6 +566,59 @@ class UPTD_Test extends TestCase
         ]);
     }
 
+
+
+
+
+
+/*
+
+    public function test_CrearUnEvento()
+    {
+        $estructuraEsperable = [
+            "usuario_id",
+            "participan",
+            "fecha",
+            "detalles",
+            "ubicacion"
+            "updated_at",
+            "created_at",
+            "id"
+
+
+        ];
+
+        $datosDeEvento = [
+            "usuario_id" => 1,
+            "participan" => 1,
+            "fecha" => 1/1/2001,
+            "detalles" => "el super evento de carlos",
+            "ubicacion" => "la casa de carlos"
+            "updated_at",
+            "created_at",
+            "id"
+        ];
+
+        $response = $this->post('/api/evento', $datosDeEvento);
+        $response->assertStatus(201);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeEvento);
+
+        $this->assertDatabaseHas('evento', [
+            "usuario_id" => 1,
+            "participan" => 1,
+            "fecha" => 1/1/2001,
+            "detalles" => "el super evento de carlos",
+            "ubicacion" => "la casa de carlos"
+            "updated_at",
+            "created_at",
+            "id"
+        ]);
+    }
+
+
+*/
+
     public function test_EliminarPost()
     {
         $response = $this->delete('/api/post/1');
@@ -590,4 +643,6 @@ class UPTD_Test extends TestCase
             'deleted_at' => null
         ]);
     }
+
+
 }
