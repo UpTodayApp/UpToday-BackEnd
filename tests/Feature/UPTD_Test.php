@@ -610,12 +610,117 @@ class UPTD_Test extends TestCase
             "fecha" => 1/1/2001,
             "detalles" => "el super evento de carlos",
             "ubicacion" => "la casa de carlos"
-            "updated_at",
-            "created_at",
-            "id"
         ]);
     }
 
+    
+    public function test_ObtenerListadoDeEvento()
+    {
+        $estructuraEsperable = [
+            '*' => [
+            "usuario_id",
+            "participan",
+            "fecha",
+            "detalles",
+            "ubicacion"
+            "updated_at",
+            "created_at",
+            "deleted_at"
+            "id"
+            ]
+        ];
+
+        $response = $this->get('/api/evento');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+    
+    public function test_ObtenerUnEvento()
+    {
+        $estructuraEsperable = [
+            "usuario_id",
+            "participan",
+            "fecha",
+            "detalles",
+            "ubicacion"
+            "updated_at",
+            "created_at",
+            "deleted_at"
+            "id"        
+            ];
+
+        $response = $this->get('/api/evento/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+    }
+
+        public function test_ModificarEvento()
+    {
+        $estructuraEsperable = [
+            "usuario_id",
+            "participan",
+            "fecha",
+            "detalles",
+            "ubicacion"
+            "updated_at",
+            "created_at",
+            "deleted_at"
+            "id"        
+        ];
+
+        $datosDeEvento = [
+            "usuario_id" => 1,
+            "participan" => 1,
+            "fecha" => 10/1/2001,
+            "detalles" => "el super evento de carlos", la revancha,
+            "ubicacion" => "la casa de carlos"
+        ];
+
+        $response = $this->put('/api/evento/1', $datosDeEvento);
+        $response->assertStatus(200);
+        $response->assertJsonStructure($estructuraEsperable);
+        $response->assertJsonFragment($datosDeEvento);
+        $this->assertDatabaseHas('evento', [
+            "usuario_id" => 1,
+            "participan" => 1,
+            "fecha" => 1/1/2001,
+            "detalles" => "el super evento de carlos",
+            "ubicacion" => "la casa de carlos"
+        ]);
+    }
+
+     public function test_ObtenerUnEventoQueNoExiste()
+    {
+        $response = $this->get('/api/evento/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_EliminarEventoQueNoExiste()
+    {
+        $response = $this->delete('/api/evento/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_ModificarEventoQueNoExiste()
+    {
+        $response = $this->put('/api/evento/99999');
+        $response->assertStatus(404);
+    }
+
+    public function test_EliminarEvento()
+    {
+        $response = $this->delete('/api/evento/1');
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['mensaje']);
+        $response->assertJsonFragment(['mensaje' => 'evento eliminado']);
+
+        $this->assertDatabaseMissing('evento', [
+            'id' => '1',
+            'deleted_at' => null
+        ]);
+    }
+    
 
 */
 
