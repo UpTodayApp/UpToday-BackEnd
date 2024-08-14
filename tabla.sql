@@ -64,7 +64,7 @@ CREATE TABLE evento (
   created_at datetime DEFAULT NULL,
   updated_at datetime DEFAULT NULL,
   deleted_at datetime DEFAULT NULL,
-  comentario_id int,
-  FOREIGN KEY (comentario_id) REFERENCES comentario(id),
+  usuario_id int,
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   PRIMARY KEY (id)
 );

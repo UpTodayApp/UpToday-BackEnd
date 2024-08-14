@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\evento;
 use Illuminate\Http\Request;
 
 class eventoController extends Controller
@@ -50,6 +51,4 @@ class eventoController extends Controller
         $evento->save();
         return $evento;
     }
-
-
 }

@@ -571,7 +571,7 @@ class UPTD_Test extends TestCase
 
 
 
-/*
+
 
     public function test_CrearUnEvento()
     {
@@ -580,7 +580,7 @@ class UPTD_Test extends TestCase
             "participan",
             "fecha",
             "detalles",
-            "ubicacion"
+            "ubicacion",
             "updated_at",
             "created_at",
             "id"
@@ -591,9 +591,9 @@ class UPTD_Test extends TestCase
         $datosDeEvento = [
             "usuario_id" => 1,
             "participan" => 1,
-            "fecha" => 1/1/2001,
+            "fecha" => 2001 - 1 - 1,
             "detalles" => "el super evento de carlos",
-            "ubicacion" => "la casa de carlos"
+            "ubicacion" => "la casa de carlos",
             "updated_at",
             "created_at",
             "id"
@@ -607,26 +607,26 @@ class UPTD_Test extends TestCase
         $this->assertDatabaseHas('evento', [
             "usuario_id" => 1,
             "participan" => 1,
-            "fecha" => 1/1/2001,
+            "fecha" => 2001 - 1 - 1,
             "detalles" => "el super evento de carlos",
             "ubicacion" => "la casa de carlos"
         ]);
     }
 
-    
+
     public function test_ObtenerListadoDeEvento()
     {
         $estructuraEsperable = [
             '*' => [
-            "usuario_id",
-            "participan",
-            "fecha",
-            "detalles",
-            "ubicacion"
-            "updated_at",
-            "created_at",
-            "deleted_at"
-            "id"
+                "usuario_id",
+                "participan",
+                "fecha",
+                "detalles",
+                "ubicacion",
+                "updated_at",
+                "created_at",
+                "deleted_at",
+                "id"
             ]
         ];
 
@@ -635,7 +635,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonStructure($estructuraEsperable);
     }
 
-    
+
     public function test_ObtenerUnEvento()
     {
         $estructuraEsperable = [
@@ -643,37 +643,37 @@ class UPTD_Test extends TestCase
             "participan",
             "fecha",
             "detalles",
-            "ubicacion"
+            "ubicacion",
             "updated_at",
             "created_at",
-            "deleted_at"
-            "id"        
-            ];
+            "deleted_at",
+            "id"
+        ];
 
         $response = $this->get('/api/evento/1');
         $response->assertStatus(200);
         $response->assertJsonStructure($estructuraEsperable);
     }
 
-        public function test_ModificarEvento()
+    public function test_ModificarEvento()
     {
         $estructuraEsperable = [
             "usuario_id",
             "participan",
             "fecha",
             "detalles",
-            "ubicacion"
+            "ubicacion",
             "updated_at",
             "created_at",
-            "deleted_at"
-            "id"        
+            "deleted_at",
+            "id"
         ];
 
         $datosDeEvento = [
             "usuario_id" => 1,
             "participan" => 1,
-            "fecha" => 10/1/2001,
-            "detalles" => "el super evento de carlos", la revancha,
+            "fecha" => 2001 - 1 - 2,
+            "detalles" => "el super evento de carlos la revancha",
             "ubicacion" => "la casa de carlos"
         ];
 
@@ -684,13 +684,13 @@ class UPTD_Test extends TestCase
         $this->assertDatabaseHas('evento', [
             "usuario_id" => 1,
             "participan" => 1,
-            "fecha" => 1/1/2001,
-            "detalles" => "el super evento de carlos",
+            "fecha" => 2001 - 1 - 2,
+            "detalles" => "el super evento de carlos, la revancha",
             "ubicacion" => "la casa de carlos"
         ]);
     }
 
-     public function test_ObtenerUnEventoQueNoExiste()
+    public function test_ObtenerUnEventoQueNoExiste()
     {
         $response = $this->get('/api/evento/99999');
         $response->assertStatus(404);
@@ -720,9 +720,7 @@ class UPTD_Test extends TestCase
             'deleted_at' => null
         ]);
     }
-    
 
-*/
 
     public function test_EliminarPost()
     {
@@ -748,6 +746,4 @@ class UPTD_Test extends TestCase
             'deleted_at' => null
         ]);
     }
-
-
 }
