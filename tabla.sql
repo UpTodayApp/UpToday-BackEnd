@@ -54,3 +54,13 @@ CREATE TABLE megusta (
   FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   PRIMARY KEY (id)
 );
+
+CREATE TABLE Grupo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(255),
+    foto VARCHAR(50),
+    created_at datetime DEFAULT NULL,
+    updated_at datetime DEFAULT NULL,
+    deleted_at datetime DEFAULT NULL,
+)
