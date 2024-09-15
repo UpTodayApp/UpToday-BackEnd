@@ -55,6 +55,20 @@ CREATE TABLE megusta (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE evento (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  participan int(6) DEFAULT NULL,
+  fecha datetime,
+  detalles varchar(255) DEFAULT NULL,
+  ubicacion varchar(255) DEFAULT NULL, 
+  created_at datetime DEFAULT NULL,
+  updated_at datetime DEFAULT NULL,
+  deleted_at datetime DEFAULT NULL,
+  usuario_id int,
+  FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE Grupo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,

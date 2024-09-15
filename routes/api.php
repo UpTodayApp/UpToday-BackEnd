@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\eventoController;
 use App\Http\Controllers\MegustaController;
 use App\Http\Controllers\usuarioController;
 
@@ -39,3 +40,9 @@ Route::get('/usuario/{d}', [usuarioController::class, 'ListarUna']);
 Route::post('/usuario', [usuarioController::class, 'Crear']);
 Route::delete('/usuario/{d}', [usuarioController::class, 'Eliminar']);
 Route::put('/usuario/{d}', [usuarioController::class, 'Modificar']);
+
+Route::get('/evento', [eventoController::class, 'ListarTodas']);
+Route::get('/evento/{d}', [eventoController::class, 'ListarUna']);
+Route::post('/evento', [eventoController::class, 'Crear']);
+Route::delete('/evento/{d}', [eventoController::class, 'Eliminar']);
+Route::put('/evento/{d}', [eventoController::class, 'Modificar']);
