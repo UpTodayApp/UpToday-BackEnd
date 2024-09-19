@@ -15,6 +15,7 @@ class eventoFactory extends Factory
     {
         return [
             "usuario_id" =>  rand(1, 10),
+            "nombre" => $this->faker->userName(),
             "participan" =>  rand(1, 10),
             "fecha" => $this->faker->date(),
             "detalles" => $this->faker->paragraph(1),

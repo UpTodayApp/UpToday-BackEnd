@@ -577,6 +577,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
             "usuario_id",
+            "nombre",
             "participan",
             "fecha",
             "detalles",
@@ -590,6 +591,7 @@ class UPTD_Test extends TestCase
 
         $datosDeEvento = [
             "usuario_id" => 1,
+            "nombre" => "super evento chachis pistachis",
             "participan" => 1,
             "fecha" => 2001 - 1 - 1,
             "detalles" => "el super evento de carlos",
@@ -606,6 +608,7 @@ class UPTD_Test extends TestCase
 
         $this->assertDatabaseHas('evento', [
             "usuario_id" => 1,
+            "nombre" => "super evento chachis pistachis",
             "participan" => 1,
             "fecha" => 2001 - 1 - 1,
             "detalles" => "el super evento de carlos",
@@ -619,6 +622,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
             '*' => [
                 "usuario_id",
+                "nombre",
                 "participan",
                 "fecha",
                 "detalles",
@@ -640,6 +644,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
             "usuario_id",
+            "nombre",
             "participan",
             "fecha",
             "detalles",
@@ -659,6 +664,7 @@ class UPTD_Test extends TestCase
     {
         $estructuraEsperable = [
             "usuario_id",
+            "nombre",
             "participan",
             "fecha",
             "detalles",
@@ -671,6 +677,7 @@ class UPTD_Test extends TestCase
 
         $datosDeEvento = [
             "usuario_id" => 1,
+            "nombre" => "para",
             "participan" => 1,
             "fecha" => 2001 - 1 - 2,
             "detalles" => "el super evento de carlos la revancha",
@@ -683,6 +690,7 @@ class UPTD_Test extends TestCase
         $response->assertJsonFragment($datosDeEvento);
         $this->assertDatabaseHas('evento', [
             "usuario_id" => 1,
+            "nombre" => "para",
             "participan" => 1,
             "fecha" => 2001 - 1 - 2,
             "detalles" => "el super evento de carlos, la revancha",

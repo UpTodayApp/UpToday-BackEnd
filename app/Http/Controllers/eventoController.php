@@ -14,6 +14,7 @@ class eventoController extends Controller
 
             $evento = new evento();
             $evento->usuario_id = $request->post("usuario_id");
+            $evento->nombre = $request->post("nombre");
             $evento->participan = $request->post("participan");
             $evento->fecha = $request->post("fecha");
             $evento->detalles = $request->post("detalles");
@@ -44,6 +45,7 @@ class eventoController extends Controller
     public function Modificar(Request $request, $id)
     {
         $evento = evento::findOrFail($id);
+        $evento->nombre = $request->post("nombre");
         $evento->participan = $request->post("participan");
         $evento->fecha = $request->post("fecha");
         $evento->detalles = $request->post("detalles");

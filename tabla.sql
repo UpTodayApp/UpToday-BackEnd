@@ -57,6 +57,7 @@ CREATE TABLE megusta (
 
 CREATE TABLE evento (
   id int(11) NOT NULL AUTO_INCREMENT,
+  nombre varchar(50),
   participan int(6) DEFAULT NULL,
   fecha datetime,
   detalles varchar(255) DEFAULT NULL,
