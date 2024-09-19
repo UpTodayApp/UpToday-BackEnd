@@ -77,5 +77,6 @@ CREATE TABLE Grupo (
     foto VARCHAR(50),
     created_at datetime DEFAULT NULL,
     updated_at datetime DEFAULT NULL,
-    deleted_at datetime DEFAULT NULL,
+    deleted_at datetime DEFAULT NULL
 )
+;
