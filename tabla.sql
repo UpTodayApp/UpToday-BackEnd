@@ -19,6 +19,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE post (
   id int(11) NOT NULL AUTO_INCREMENT,
+  ubicacion  varchar(20) DEFAULT NULL,
   contenido varchar(255) DEFAULT NULL,
   usuario_id int(11) DEFAULT NULL,
   created_at datetime DEFAULT NULL,

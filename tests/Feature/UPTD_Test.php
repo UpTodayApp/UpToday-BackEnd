@@ -152,6 +152,7 @@ class UPTD_Test extends TestCase
         $estructuraEsperable = [
             'id',
             'usuario_id',
+            'ubicacion',
             'contenido',
             'created_at',
             'updated_at',
@@ -161,6 +162,7 @@ class UPTD_Test extends TestCase
 
         $datosDePost = [
             "usuario_id" => 1,
+            "ubicacion" => "a",
             "contenido" => "aguante la mercaaaaaaaaaaaaaaaaaaaa"
         ];
 
@@ -171,6 +173,7 @@ class UPTD_Test extends TestCase
 
         $this->assertDatabaseHas('post', [
             "usuario_id" => 1,
+            "ubicacion" => "a",
             "contenido" => "aguante la mercaaaaaaaaaaaaaaaaaaaa"
         ]);
     }
@@ -181,6 +184,7 @@ class UPTD_Test extends TestCase
             '*' => [
                 'id',
                 'usuario_id',
+                "ubicacion",
                 'contenido',
                 'created_at',
                 'updated_at',
@@ -198,6 +202,7 @@ class UPTD_Test extends TestCase
 
             'id',
             'usuario_id',
+            "ubicacion",
             'contenido',
             'created_at',
             'updated_at',
@@ -230,6 +235,7 @@ class UPTD_Test extends TestCase
 
             'id',
             'usuario_id',
+            "ubicacion",
             'contenido',
             'created_at',
             'updated_at',

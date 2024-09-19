@@ -15,6 +15,7 @@ class PostController extends Controller
             $post = new Post();
             $post->usuario_id = $request->post("usuario_id");
             $post->contenido = $request->post("contenido");
+            $post->contenido = $request->post("ubicacion");
             $post->save();
             return $post;
         }
@@ -43,6 +44,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $post->usuario_id = $request->post("usuario_id");
         $post->contenido = $request->post("contenido");
+        $post->contenido = $request->post("ubicacion");
         $post->save();
         return $post;
     }
