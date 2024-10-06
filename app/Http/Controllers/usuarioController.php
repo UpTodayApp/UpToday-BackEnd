@@ -9,22 +9,23 @@ class usuarioController extends Controller
 {
     public function Crear(Request $request)
     {
-        if ($request->has("Correo") && $request->has("Contraseña")) {
+        if ($request->has("correo") && $request->has("contrasenia")) {
 
 
             $usuario = new usuario();
-            $usuario->NombreUsuario = $request->post("NombreUsuario");
-            $usuario->Correo = $request->post("Correo");
-            $usuario->Contraseña = $request->post("Contraseña");
+            $usuario->nombre = $request->post("nombre");
+            $usuario->correo = $request->post("correo");
+            $usuario->contrasenia = $request->post("contrasenia");
             $usuario->save();
-            return $usuario;
+            return(redirect("listarUsuario"));
         }
         return response()->json(["error mesage" => "no se pudo crear el usuario, hubo un error"]);
     }
 
     public function ListarTodas(Request $request)
     {
-        return usuario::all();
+        $usuario = usuario::all();
+        return view("listarUsuario", ["usuario" => $usuario]);
     }
 
     public function ListarUna(Request $request, $id)
@@ -34,17 +35,17 @@ class usuarioController extends Controller
 
     public function Eliminar(Request $request, $id)
     {
-        $post = usuario::findOrFail($id);
-        $post->delete();
-        return ['mensaje' => 'usuario eliminado'];
+        $usuario = usuario::findOrFail($id);
+        $usuario->delete();
+        return redirect("/listarUsuario");
     }
 
     public function Modificar(Request $request, $id)
     {
         $usuario = usuario::findOrFail($id);
-        $usuario->NombreUsuario = $request->post("NombreUsuario");
-        $usuario->Correo = $request->post("Correo");
-        $usuario->Contraseña = $request->post("Contraseña");
+        $usuario->nombre = $request->post("usuario");
+        $usuario->correo = $request->post("correo");
+        $usuario->contrasenia = $request->post("contrasenia");
         $usuario->save();
         return $usuario;
     }
