@@ -23,6 +23,7 @@ CREATE TABLE post (
   id int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
   contenido varchar(255), 
   fecha date, 
+  ubicacion varchar(255),
   megusta varchar(4), 
   etiquetas varchar(30),
   usuario_id int(11) DEFAULT NULL,

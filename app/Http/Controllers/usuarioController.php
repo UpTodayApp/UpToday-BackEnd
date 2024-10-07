@@ -17,7 +17,7 @@ class usuarioController extends Controller
             $usuario->correo = $request->post("correo");
             $usuario->contrasenia = $request->post("contrasenia");
             $usuario->save();
-            return(redirect("listarUsuario"));
+            return $usuario;
         }
         return response()->json(["error mesage" => "no se pudo crear el usuario, hubo un error"]);
     }
@@ -25,7 +25,7 @@ class usuarioController extends Controller
     public function ListarTodas(Request $request)
     {
         $usuario = usuario::all();
-        return view("listarUsuario", ["usuario" => $usuario]);
+        return $usuario;
     }
 
     public function ListarUna(Request $request, $id)
@@ -37,7 +37,7 @@ class usuarioController extends Controller
     {
         $usuario = usuario::findOrFail($id);
         $usuario->delete();
-        return redirect("/listarUsuario");
+        return ['mensaje' => 'usuario eliminado'];
     }
 
     public function Modificar(Request $request, $id)
