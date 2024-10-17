@@ -62,7 +62,8 @@ CREATE TABLE megusta (
 );
 
 CREATE TABLE evento (
-  id int(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+  id int(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  nombre varchar(255),
   participan int(6), 
   detalles varchar(255), 
   fecha date, 
