@@ -1,7 +1,3 @@
-DROP DATABASE IF EXISTS prueba;
-CREATE DATABASE prueba CHARSET utf8mb4;
-USE prueba;
-
 CREATE TABLE usuario (
   id int(11) NOT NULL AUTO_INCREMENT,
   nombre varchar(20),
@@ -23,8 +19,8 @@ CREATE TABLE post (
   id int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
   contenido varchar(255), 
   fecha date, 
-  ubicacion varchar(255),
   megusta varchar(4), 
+  ubicacion varchar(255),
   etiquetas varchar(30),
   usuario_id int(11) DEFAULT NULL,
   created_at datetime DEFAULT NULL,
@@ -62,7 +58,7 @@ CREATE TABLE megusta (
 );
 
 CREATE TABLE evento (
-  id int(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  id int(7) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
   nombre varchar(255),
   participan int(6), 
   detalles varchar(255), 
